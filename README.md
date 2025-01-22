@@ -25,23 +25,24 @@ npm run dev
 
 ### 3. Access the Project
 
-The project will now be running on http://localhost:3000 (or a different port if 3000 is taken).
+The project will now be running on http://localhost:5173 (Or some other port).
 
 ## Development Resources
 
 For further assistance and learning, please visit the following documentation:
 
 React Documentation: https://react.dev/
+
 Tailwind CSS Documentation: https://tailwindcss.com/docs/installation
 
 ### Recommended VS Code Extensions
 
 For an enhanced development experience, we recommend the following extensions in Visual Studio Code:
 
-React
-ES7+ React/Redux/React-Native Snippets
-Tailwind CSS IntelliSense
-Tailwind Docs
-Prettier - Code Formatter
-Headwind
-These extensions help with code snippets, formatting, and working with React and Tailwind CSS.
+- React
+- ES7+ React/Redux/React-Native Snippets
+- Tailwind CSS IntelliSense
+- Tailwind Docs
+- Prettier - Code Formatter
+- Headwind
+- These extensions help with code snippets, formatting, and working with React and Tailwind CSS.
