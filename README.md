@@ -35,6 +35,18 @@ React Documentation: https://react.dev/
 
 Tailwind CSS Documentation: https://tailwindcss.com/docs/installation
 
+### File structure
+
+- public (static files)
+- src
+  - assets (images and other assets needed)
+  - components (reusable UI components )
+  - pages (Different pages/views of the app)
+  - styles (the styling)
+  - App.tsx (Main applicatoin component)
+  - main.tsx (Entry point for react app)
+- - configfiles
+
 ### Recommended VS Code Extensions
 
 For an enhanced development experience, we recommend the following extensions in Visual Studio Code:
