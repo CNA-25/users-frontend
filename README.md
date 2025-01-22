@@ -1,4 +1,4 @@
-# Login Service Project
+# Users Login Frontend Project For CNA
 
 A clean and simple login service allowing users to log in, register, reset their password, and track orders.  
 This project is built with **React** and **TypeScript**, styled using **Tailwind CSS**.
@@ -45,4 +45,5 @@ For an enhanced development experience, we recommend the following extensions in
 - Tailwind Docs
 - Prettier - Code Formatter
 - Headwind
-- These extensions help with code snippets, formatting, and working with React and Tailwind CSS.
+
+These extensions help with code snippets, formatting, and working with React and Tailwind CSS.
