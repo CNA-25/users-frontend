@@ -45,7 +45,7 @@ Tailwind CSS Documentation: https://tailwindcss.com/docs/installation
   - styles (the styling)
   - App.tsx (Main applicatoin component)
   - main.tsx (Entry point for react app)
-the rest - configfiles
+- the rest is configfiles
 
 ### Recommended VS Code Extensions
 
