@@ -11,9 +11,11 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Copy the rest of the React app's source code
+COPY . .
+
 # Build the react app
 RUN npm run build
-
 
 # Stage 2
 # Copy the react app build above in nginx
