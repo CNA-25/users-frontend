@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm Install
+RUN npm install
 
 # Build the react app
 RUN npm run build
