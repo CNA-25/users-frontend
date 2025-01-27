@@ -25,7 +25,7 @@ FROM nginx:alpine as production-stage
 RUN mkdir -p /var/cache/nginx /var/log/nginx && chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx
 
 # Copy the build output from the build-stage
-COPY --from=build-stage /app/build /usr/share/nginx/html
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Expose port 80 to the outside
 EXPOSE 80
