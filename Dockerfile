@@ -21,11 +21,14 @@ RUN npm run build
 # Copy the react app build above in nginx
 FROM nginx:alpine as production-stage
 
-# Copy the build output from the build stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+# Ensure the necessary directories have proper permissions
+RUN mkdir -p /var/cache/nginx /var/log/nginx && chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx
+
+# Copy the build output from the build-stage
+COPY --from=build-stage /app/build /usr/share/nginx/html
 
 # Expose port 80 to the outside
 EXPOSE 80
 
-# Start nginx
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
