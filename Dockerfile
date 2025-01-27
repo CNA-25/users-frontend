@@ -21,8 +21,14 @@ RUN npm run build
 # Copy the react app build above in nginx
 FROM nginx as production-stage
 
+# Create a directory for the custom Nginx config if it doesn't exist
+RUN mkdir -p /etc/nginx/conf.d/
+
+# Copy the custom Nginx configuration
+COPY default.conf /etc/nginx/conf.d/default.conf
+
 # Copy the build output from the build-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /app/dist /app/dist
 
 # Expose port 80 to the outside
 EXPOSE 80
