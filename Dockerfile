@@ -22,7 +22,7 @@ RUN npm run build
 FROM nginx as production-stage
 
 # Copy the build output from the build-stage
-COPY --from=build-stage /app/dist /etc/nginx/html
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Expose port 80 to the outside
 EXPOSE 80
