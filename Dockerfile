@@ -19,13 +19,10 @@ RUN npm run build
 
 # Stage 2
 # Copy the react app build above in nginx
-FROM nginx:alpine as production-stage
-
-# Ensure the necessary directories have proper permissions
-RUN mkdir -p /var/cache/nginx /var/log/nginx && chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx
+FROM nginx as production-stage
 
 # Copy the build output from the build-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /app/dist /etc/nginx/html
 
 # Expose port 80 to the outside
 EXPOSE 80
