@@ -9,8 +9,7 @@ import TempHomePage from "./pages/TempHomePage";
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="w-full min-h-screen bg-zinc-200">
-        <main className="w-full p-0 mx-0">
+        <main className="w-screen h-screen p-0 mx-0 bg-zinc-200">
           <Routes>
             <Route path="/" element={<TempHomePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -19,7 +18,6 @@ const App: React.FC = () => {
             <Route path="/resetpassword" element={<ResetPasswordPage />} />
           </Routes>
         </main>
-      </div>
     </Router>
   );
 };
