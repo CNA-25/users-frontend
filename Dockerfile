@@ -1,37 +1,32 @@
-# Stage 1
-# Build docker image of react app
-FROM node:23-alpine as build-stage
+# Stage 1: Build the React app
+FROM node:18 AS builder
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy the rest of the React app's source code
 COPY . .
-
-# Build the react app
 RUN npm run build
 
-# Stage 2
-# Copy the react app build above in nginx
-FROM nginx as production-stage
+# Stage 2: Serve with Nginx
+FROM nginx:latest
 
-# Create a directory for the custom Nginx config if it doesn't exist
-RUN mkdir -p /etc/nginx/conf.d/
+WORKDIR /usr/share/nginx/html
 
-# Copy the custom Nginx configuration
-COPY default.conf /etc/nginx/conf.d/default.conf
+# Remove default Nginx static files
+RUN rm -rf ./*
 
-# Copy the build output from the build-stage
-COPY --from=build-stage /app/dist /app/dist
+# Copy built React app from the previous stage
+COPY --from=builder /app/dist/ .
 
-# Expose port 80 to the outside
-EXPOSE 80
+# Ensure proper permissions for OpenShift (fixing permission issue)
+RUN chmod -R 777 /var/cache/nginx /var/run /var/log/nginx
 
-# Start Nginx
+# Copy custom Nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 8080
+USER 1001  # Run as non-root user
+
 CMD ["nginx", "-g", "daemon off;"]

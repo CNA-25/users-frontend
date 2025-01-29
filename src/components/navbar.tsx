@@ -14,49 +14,51 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full p-2 md:p-4 bg-black md:flex-row">
-      <div className="flex flex-1 flex-row justify-between items-center">
-        <h1 className="text-3xl font-bold text-orange-500">BeerCraft</h1>
-        <img
-          className="flex md:hidden text-white w-10 h-10 mr-2"
-          src="/hamburger-menu.svg"
-          onClick={toggle}
-        />
-      </div>
-      {open && (
-        <div className="flex flex-1 flex-col justify-between items-center md:flex-row">
-          <Link
-            to="/"
-            className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
-          >
-            Home
-          </Link>
-          <Link
-            to="/login"
-            className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
-          >
-            Register
-          </Link>
-          <Link
-            to="/orders"
-            className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
-          >
-            Orders
-          </Link>
-          <Link
-            to="/resetpassword"
-            className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
-          >
-            Reset password
-          </Link>
+    <div className="w-full bg-black">
+      <div className="mx-auto flex flex-col max-w-screen-xl p-2 md:p-4 md:flex-row">
+        <div className="flex flex-1 flex-row justify-between items-center">
+          <h1 className="text-3xl font-bold text-orange-500">BeerCraft</h1>
+          <img
+            className="flex md:hidden text-white w-10 h-10 mr-2"
+            src="/hamburger-menu.svg"
+            onClick={toggle}
+          />
         </div>
-      )}
+        {open && (
+          <div className="flex flex-1 flex-col justify-between items-center md:flex-row">
+            <Link
+              to="/"
+              className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
+            >
+              Home
+            </Link>
+            <Link
+              to="/login"
+              className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
+            >
+              Register
+            </Link>
+            <Link
+              to="/orders"
+              className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
+            >
+              Orders
+            </Link>
+            <Link
+              to="/resetpassword"
+              className="text-orange-500 text-2xl md:text-md hover:text-orange-800"
+            >
+              Reset password
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
