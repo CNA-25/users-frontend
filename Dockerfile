@@ -1,5 +1,5 @@
 # Stage 1: Build the React app
-FROM node:18 AS builder
+FROM node:20 AS builder
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ COPY --from=builder /app/dist/ .
 RUN chmod -R 777 /var/cache/nginx /var/run /var/log/nginx
 
 # Copy custom Nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080
 USER 1001  # Run as non-root user
