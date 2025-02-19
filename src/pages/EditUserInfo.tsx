@@ -1,6 +1,9 @@
 import Navbar from "@/components/navbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import decodeJWT from "@/components/JWT/jwtDecoder";
 
 const EditUserInfo: React.FC = () => {
   const navigate = useNavigate();
@@ -17,11 +20,56 @@ const EditUserInfo: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Updated User Info:", formData);
-    // API CALL AND LOGIC GOES HERE
-    navigate("/orders");
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      toast.error("Unauthorized. Please log in first.", {
+        className: "bg-zinc-900 text-white",
+      });
+      return;
+    }
+    const decodedToken = decodeJWT(token);
+    const userId = decodedToken?.sub;
+
+    if (!userId) {
+      toast.error("Failed to retrieve user ID.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`{{apiURL}}/users/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          dob: formData.birthday,
+          password: formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update user");
+      }
+
+      toast.success("User updated successfully!", {
+        className: "bg-zinc-900 text-white",
+      });
+      navigate("/orders");
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "An error occurred",
+        {
+          className: "bg-zinc-900 text-white",
+        }
+      );
+      console.error("Update error:", error);
+    }
   };
 
   return (

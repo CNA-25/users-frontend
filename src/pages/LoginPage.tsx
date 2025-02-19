@@ -1,25 +1,60 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import Navbar from "../components/navbar";
 import { Link, useNavigate } from "react-router-dom";
+
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Updated User Info:", formData);
-    // API CALL AND LOGIC GOES HERE
-    navigate("/orders");
+    setError(""); // Reset error state before attempting login
+    await handleLogin();
   };
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("{{apiURL}}/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      toast.success("Login successful!", {
+        className: "bg-zinc-900 text-white",
+      });
+      console.log("Login successful", data);
+      localStorage.setItem("access_token", data.access_token);
+      navigate("/orders");
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "An unexpected error occurred",
+        { className: "bg-zinc-900 text-white" }
+      );
+      console.error("Login error:", error);
+    }
+  };
+
   return (
     <>
       <Navbar />
+      <ToastContainer />
       <div className="flex flex-col p-4 my-48">
         <div className="flex items-center justify-center">
           <form
@@ -29,7 +64,10 @@ const LoginPage: React.FC = () => {
             <h1 className="my-8 text-6xl font-bold text-center text-orange-700">
               Login
             </h1>
+            {error && <p className="text-center text-red-500">{error}</p>}
             <input
+              name="email"
+              value={formData.email}
               onChange={handleChange}
               type="email"
               placeholder="Email"
@@ -37,6 +75,8 @@ const LoginPage: React.FC = () => {
               required
             />
             <input
+              name="password"
+              value={formData.password}
               onChange={handleChange}
               type="password"
               placeholder="Password"
