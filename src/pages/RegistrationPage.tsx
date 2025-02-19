@@ -4,12 +4,14 @@ import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 
 const RegistrationPage: React.FC = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
-
 
   // Uppdaterar state när användaren skriver i ett inmatningsfält
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +23,6 @@ const RegistrationPage: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
 
     // Skickar användardata till API:n, urln är en placeholder
     try {
@@ -40,7 +41,10 @@ const RegistrationPage: React.FC = () => {
       <Navbar />
       <div className="flex flex-col p-4 my-48">
         <div className="flex items-center justify-center">
-          <form onSubmit={handleSubmit} className="flex flex-col w-1/4 space-y-4">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col w-1/4 space-y-4"
+          >
             <h1 className="my-8 text-6xl font-bold text-center text-orange-700">
               Register
             </h1>
@@ -80,7 +84,7 @@ const RegistrationPage: React.FC = () => {
               {loading ? "Registering..." : "Register"}
             </button>
             <Link
-              to="/login"
+              to="/"
               className="w-auto text-center text-orange-600 md:text-md hover:text-orange-800"
             >
               Already have an account? Login here!

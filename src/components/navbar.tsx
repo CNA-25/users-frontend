@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
         </div>
         <div className="flex flex-col justify-end flex-1 md:flex-row">
           <Link
-            to="/login"
+            to="/"
             className="mx-4 text-2xl text-orange-500 md:text-md hover:text-orange-800"
           >
             Login

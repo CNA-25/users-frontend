@@ -11,7 +11,7 @@ const App: React.FC = () => {
     <Router>
       <main className="w-screen h-screen p-0 mx-0 bg-zinc-950">
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/orders" element={<MyOrdersPage />} />
           <Route path="/resetpassword" element={<ResetPasswordPage />} />
