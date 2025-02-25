@@ -2,10 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { API } from "@/utils/orders/api";
 import { Order } from "@/utils/orders/order";
 import OrderItem from "./OrderItem";
+import decodeJWT from "../JWT/jwtDecoder";
+import { useAuthStore } from "@/stores/auth";
 
 function OrderList() {
+	const { token } = useAuthStore();
+	const tokenData = decodeJWT(token || "");
+
 	const { data, isLoading, isError, error } = useQuery({
-		queryFn: () => loadOrders(101),
+		queryFn: () => loadOrders(tokenData.sub, token || ""),
 		queryKey: ["orders"],
 		refetchOnMount: true,
 	});
@@ -46,9 +51,11 @@ function OrderList() {
 	);
 }
 
-const loadOrders = async (id: number) => {
+const loadOrders = async (id: number, token: string) => {
 	try {
-		const response = await API.get<Order[]>(`/orders/${id}`);
+		const response = await API.get<Order[]>(`/orders`, {
+			headers: { token: `${token}` },
+		});
 		return response.data;
 	} catch (error) {
 		console.log(error);

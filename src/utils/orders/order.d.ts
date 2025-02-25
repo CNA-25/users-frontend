@@ -1,16 +1,21 @@
 export type Order = {
-	orderId: number;
-	userId: number;
+	order_id: number;
+	user_id: number;
 	timestamp: Date;
-	orderPrice: string;
-	orderItems?: OrderItem[];
+	order_price: string;
+	order_items?: OrderItem[];
 };
 
 export type OrderItem = {
 	order_item_id: number;
 	order_id: number;
 	product_id: number;
-	amount: number;
-	product_price: string;
+	quantity: number;
 	product_name: string;
+	product_price: string;
+	total_price: string;
+	product_description: string;
+	product_image: string;
+	product_country: string;
+	product_category: string;
 };
