@@ -2,23 +2,24 @@ import { useQuery } from "@tanstack/react-query";
 import { API } from "@/utils/orders/api";
 import { Order } from "@/utils/orders/order";
 import OrderItem from "./OrderItem";
-import decodeJWT from "../JWT/jwtDecoder";
 import { useAuthStore } from "@/stores/auth";
 
 function OrderList() {
 	const { token } = useAuthStore();
-	const tokenData = decodeJWT(token || "");
 
 	const { data, isLoading, isError, error } = useQuery({
-		queryFn: () => loadOrders(tokenData.sub, token || ""),
+		queryFn: () => loadOrders(token || ""),
 		queryKey: ["orders"],
 		refetchOnMount: true,
 	});
 
 	if (isLoading) {
 		return (
-			<tr className="border-2 border-black">
-				<td colSpan={4} className="p-2 text-md md:text-3xl">
+			<tr className="border-b-2 border-white">
+				<td
+					colSpan={4}
+					className="p-2 text-zinc-400 font-extralight text-md md:text-2xl"
+				>
 					Loading your orders...
 				</td>
 			</tr>
@@ -27,8 +28,11 @@ function OrderList() {
 
 	if (isError) {
 		return (
-			<tr className="border-2 border-black">
-				<td colSpan={4} className="p-2 text-md md:text-3xl">
+			<tr className="border-b-2 border-white">
+				<td
+					colSpan={4}
+					className="p-2 text-zinc-400 font-extralight text-md md:text-2xl"
+				>
 					Error loading your orders:{" "}
 					{error instanceof Error ? error.message : "Unknown error"}
 				</td>
@@ -43,15 +47,18 @@ function OrderList() {
 			})}
 		</>
 	) : (
-		<tr className="border-2 border-gray-500">
-			<td colSpan={4} className="p-2 text-white text-md md:text-3xl">
+		<tr className="border-b-2 border-white">
+			<td
+				colSpan={4}
+				className="p-2 text-zinc-400 font-extralight text-md md:text-2xl"
+			>
 				You have no orders
 			</td>
 		</tr>
 	);
 }
 
-const loadOrders = async (id: number, token: string) => {
+const loadOrders = async (token: string) => {
 	try {
 		const response = await API.get<Order[]>(`/orders`, {
 			headers: { token: `${token}` },
@@ -65,27 +72,29 @@ const loadOrders = async (id: number, token: string) => {
 
 function OrderListLayout() {
 	return (
-		<table className="w-full border-collapse table-auto">
-			<thead className="bg-orange-500">
-				<tr className="">
-					<th className="p-2 font-semibold text-left text-white border-2 border-gray-300 rounded-md text-md md:text-3xl">
-						Order ID
-					</th>
-					<th className="p-2 font-semibold text-left text-white border-2 border-gray-300 text-md md:text-4xl">
-						User ID
-					</th>
-					<th className="p-2 font-semibold text-left text-white border-2 border-gray-300 text-md md:text-4xl">
-						Order Time
-					</th>
-					<th className="p-2 font-semibold text-left text-white border-2 border-gray-300 text-md md:text-4xl">
-						Order Price
-					</th>
-				</tr>
-			</thead>
-			<tbody className="p-0 m-0">
-				<OrderList />
-			</tbody>
-		</table>
+		<div className="w-full overflow-y-auto scrollbar-custom">
+			<table className="w-full border-collapse table-auto">
+				<thead className="">
+					<tr className="">
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-3xl">
+							Order ID
+						</th>
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-3xl">
+							User ID
+						</th>
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-3xl">
+							Order Time
+						</th>
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-white text-md md:text-2xl">
+							Order Price
+						</th>
+					</tr>
+				</thead>
+				<tbody className="border-collapse table-auto">
+					<OrderList />
+				</tbody>
+			</table>
+		</div>
 	);
 }
 

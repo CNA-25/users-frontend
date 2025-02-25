@@ -6,9 +6,13 @@ const MyOrdersPage: React.FC = () => {
 	return (
 		<>
 			<Navbar />
-			<div className="flex flex-col max-w-screen-lg px-4 py-8 mx-auto overflow-y-auto">
-				<h1 className="my-4 text-4xl font-bold text-white">Your orders:</h1>
-				<OrderList />
+			<div className="flex justify-center flex-1 px-4 overflow-hidden">
+				<div className="flex flex-col flex-1 w-full max-w-screen-lg mb-10 overflow-hidden">
+					<h1 className="my-4 text-xl font-bold text-white sm:text-2xl md:text-3xl lg:text-4xl">
+						Your orders:
+					</h1>
+					<OrderList />
+				</div>
 			</div>
 		</>
 	);
