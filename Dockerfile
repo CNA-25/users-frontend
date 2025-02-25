@@ -2,31 +2,31 @@
 FROM node:20 AS builder
 
 WORKDIR /app
-
 COPY package.json package-lock.json ./
 RUN npm install
-
 COPY . .
 RUN npm run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:latest
 
-WORKDIR /usr/share/nginx/html
+# Use OpenShift-compatible directory
+WORKDIR /opt/app-root/src
 
-# Remove default Nginx static files
-RUN rm -rf ./*
+# Remove default Nginx files
+RUN rm -rf /usr/share/nginx/html/*
 
-# Copy built React app from the previous stage
+# Copy built React files to OpenShift-friendly directory
 COPY --from=builder /app/dist/ .
 
-# Ensure proper permissions for OpenShift (fixing permission issue)
-RUN chmod -R 777 /var/cache/nginx /var/run /var/log/nginx
-
 # Copy custom Nginx config
-COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Set correct permissions for OpenShift
+RUN chmod -R 777 /opt/app-root/src /var/cache/nginx /var/run /var/log/nginx
+
+# Expose port 8080 (avoid port 80)
 EXPOSE 8080
-USER 1001  # Run as non-root user
 
+# Remove `USER nginx` since OpenShift already enforces non-root users
 CMD ["nginx", "-g", "daemon off;"]
