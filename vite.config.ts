@@ -5,11 +5,6 @@ import { resolve } from "path";
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [react()],
-	server: {
-		proxy: {
-			"/api": "https://order-service-api-order-service.2.rahtiapp.fi",
-		},
-	},
 	resolve: {
 		alias: {
 			"@": resolve(__dirname, "./src"),
