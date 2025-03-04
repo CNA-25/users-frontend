@@ -2,14 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { API } from "@/utils/orders/api";
 import { Order } from "@/utils/orders/order";
 import OrderItem from "./OrderItem";
-import { useAuthStore } from "@/stores/auth";
 
 function OrderList() {
-	const { token } = useAuthStore();
-
 	const { data, isLoading, isError, error } = useQuery({
-		queryFn: () => loadOrders(token || ""),
 		queryKey: ["orders"],
+		queryFn: loadOrders,
 		refetchOnMount: true,
 	});
 
@@ -58,11 +55,9 @@ function OrderList() {
 	);
 }
 
-const loadOrders = async (token: string) => {
+const loadOrders = async () => {
 	try {
-		const response = await API.get<Order[]>(`/orders`, {
-			headers: { token: `${token}` },
-		});
+		const response = await API.get<Order[]>(`/orders`, {});
 		return response.data;
 	} catch (error) {
 		console.log(error);
