@@ -121,7 +121,6 @@ const EditUserInfo: React.FC = () => {
       }
 
       toast.success("User updated successfully!");
-      navigate("/orders");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "An error occurred");
       console.error("Update error:", error);
@@ -154,6 +153,7 @@ const EditUserInfo: React.FC = () => {
               required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
+            <h2>*</h2>
             <input
               type="email"
               name="email"
@@ -163,6 +163,7 @@ const EditUserInfo: React.FC = () => {
               required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
+            <h2>*</h2>
             <input
               type="tel"
               name="phone"
@@ -181,6 +182,7 @@ const EditUserInfo: React.FC = () => {
               required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
+            <h2>*</h2>
             <input
               type="password"
               name="password"
