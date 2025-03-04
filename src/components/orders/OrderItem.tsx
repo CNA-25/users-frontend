@@ -16,7 +16,7 @@ export default function OrderItem(props: OrderItemProps) {
 		<>
 			<tr
 				className={
-					"cursor-pointer hover:bg-zinc-700/50" + open && " bg-zinc-500"
+					"cursor-pointer hover:bg-zinc-700/50" + open ? " bg-zinc-700/25" : ""
 				}
 				onClick={toggleOpen}
 			>
@@ -38,7 +38,7 @@ export default function OrderItem(props: OrderItemProps) {
 			</tr>
 			{open && (
 				<tr className="border-none">
-					<td colSpan={4} className="p-0">
+					<td colSpan={5} className="p-0">
 						<table className="w-full border-none">
 							<thead className="bg-orange-500 border-collapse">
 								<tr>
