@@ -14,13 +14,13 @@ function OrderProduct(props: OrderProductProps) {
 			</td>
 			<td className="px-2 py-1 mx-auto border-b-2 border-r-2 border-white">
 				<img
-					loading="eager"
+					loading="lazy"
 					src={
 						"https://product-service-cna-product-service.2.rahtiapp.fi" +
 						product.product_image
 					}
 					alt="Product image"
-					height={192}
+					height={180}
 					className="object-cover mx-auto my-2 rounded-lg max-h-48"
 				/>
 			</td>

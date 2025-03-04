@@ -6,10 +6,12 @@ import RegisterPage from "./pages/RegistrationPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import EditUserInfo from "./pages/EditUserInfo";
 import ProtectedPage from "./components/ProtectedPage";
+import { ToastContainer } from "react-toastify";
 
 const App: React.FC = () => {
 	return (
 		<Router>
+			<ToastContainer theme="dark" />
 			<main className="flex flex-col w-screen h-screen p-0 mx-0 bg-zinc-950">
 				<Routes>
 					<Route path="/" element={<LoginPage />} />

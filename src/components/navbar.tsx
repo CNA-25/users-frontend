@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 				<div className="flex flex-row items-center justify-between flex-1">
 					<h1 className="text-3xl font-bold text-orange-500">BeerCraft</h1>
 				</div>
-				<div className="flex flex-col justify-end flex-1 md:flex-row">
+				<div className="flex flex-row justify-between w-full md:w-min">
 					{authenticated ? (
 						<>
 							<Link
@@ -24,7 +24,6 @@ const Navbar: React.FC = () => {
 							>
 								Profile
 							</Link>
-
 							<Link
 								to="/orders"
 								className="mx-4 text-2xl text-orange-500 md:text-md hover:text-orange-800"

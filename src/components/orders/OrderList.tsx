@@ -14,7 +14,7 @@ function OrderList() {
 		return (
 			<tr className="border-b-2 border-white">
 				<td
-					colSpan={4}
+					colSpan={5}
 					className="p-2 text-zinc-400 font-extralight text-md md:text-2xl"
 				>
 					Loading your orders...
@@ -27,7 +27,7 @@ function OrderList() {
 		return (
 			<tr className="border-b-2 border-white">
 				<td
-					colSpan={4}
+					colSpan={5}
 					className="p-2 text-zinc-400 font-extralight text-md md:text-2xl"
 				>
 					Error loading your orders:{" "}
@@ -46,7 +46,7 @@ function OrderList() {
 	) : (
 		<tr className="border-b-2 border-white">
 			<td
-				colSpan={4}
+				colSpan={5}
 				className="p-2 text-zinc-400 font-extralight text-md md:text-2xl"
 			>
 				You have no orders
@@ -55,7 +55,7 @@ function OrderList() {
 	);
 }
 
-const loadOrders = async () => {
+const loadOrders = async (): Promise<Order[]> => {
 	try {
 		const response = await API.get<Order[]>(`/orders`, {});
 		return response.data;

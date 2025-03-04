@@ -10,7 +10,7 @@ export type Order = {
 export type OrderItem = {
 	order_item_id: number;
 	order_id: number;
-	product_id: number;
+	product_id: string;
 	quantity: number;
 	product_name: string;
 	product_price: string;

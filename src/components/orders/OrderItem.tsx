@@ -10,29 +10,28 @@ export default function OrderItem(props: OrderItemProps) {
 	const { order } = props;
 	const [open, setOpen] = useState(false);
 
+	const openStyle = open ? "bg-zinc-700/75" : "";
 	const toggleOpen = () => setOpen((prev) => !prev);
 
 	return (
 		<>
 			<tr
-				className={
-					"cursor-pointer hover:bg-zinc-700/50" + open ? " bg-zinc-700/25" : ""
-				}
+				className={"cursor-pointer hover:bg-zinc-700/50 " + openStyle}
 				onClick={toggleOpen}
 			>
-				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-2xl">
+				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-xl">
 					# {order.order_id}
 				</td>
-				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-2xl">
+				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-xl">
 					{order.user_id}
 				</td>
-				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-2xl">
+				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-xl">
 					{new Date(order.timestamp).toLocaleString()}
 				</td>
-				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-2xl">
+				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-xl">
 					{order.shipping_address}
 				</td>
-				<td className="px-2 py-1 font-light text-left border-b-2 border-white text-zinc-400 text-md md:text-2xl">
+				<td className="px-2 py-1 font-light text-left border-b-2 border-white text-zinc-400 text-md md:text-xl">
 					{order.order_price} €
 				</td>
 			</tr>
