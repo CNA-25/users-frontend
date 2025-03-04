@@ -3,6 +3,7 @@ export type Order = {
 	user_id: number;
 	timestamp: Date;
 	order_price: string;
+	shipping_address: string;
 	order_items?: OrderItem[];
 };
 

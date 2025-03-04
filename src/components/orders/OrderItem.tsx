@@ -14,7 +14,12 @@ export default function OrderItem(props: OrderItemProps) {
 
 	return (
 		<>
-			<tr className="cursor-pointer hover:bg-zinc-700/50" onClick={toggleOpen}>
+			<tr
+				className={
+					"cursor-pointer hover:bg-zinc-700/50" + open && " bg-zinc-500"
+				}
+				onClick={toggleOpen}
+			>
 				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-2xl">
 					# {order.order_id}
 				</td>
@@ -23,6 +28,9 @@ export default function OrderItem(props: OrderItemProps) {
 				</td>
 				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-2xl">
 					{new Date(order.timestamp).toLocaleString()}
+				</td>
+				<td className="px-2 py-1 font-light text-left border-b-2 border-r-2 border-white text-zinc-400 text-md md:text-2xl">
+					{order.shipping_address}
 				</td>
 				<td className="px-2 py-1 font-light text-left border-b-2 border-white text-zinc-400 text-md md:text-2xl">
 					{order.order_price} €
@@ -34,22 +42,22 @@ export default function OrderItem(props: OrderItemProps) {
 						<table className="w-full border-none">
 							<thead className="bg-orange-500 border-collapse">
 								<tr>
-									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-2xl">
+									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
 										Product Id
 									</th>
-									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-2xl">
+									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
 										Product Image
 									</th>
-									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-2xl">
+									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
 										Product Info
 									</th>
-									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-2xl">
+									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
 										Quantity
 									</th>
-									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-2xl">
+									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
 										Price
 									</th>
-									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-white text-md md:text-2xl">
+									<th className="px-2 py-1 font-normal text-left text-white border-b-2 border-white text-md md:text-xl">
 										Total Price
 									</th>
 								</tr>

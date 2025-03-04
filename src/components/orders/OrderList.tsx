@@ -71,16 +71,19 @@ function OrderListLayout() {
 			<table className="w-full border-collapse table-auto">
 				<thead className="">
 					<tr className="">
-						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-3xl">
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
 							Order ID
 						</th>
-						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-3xl">
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
 							User ID
 						</th>
-						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-3xl">
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
 							Order Time
 						</th>
-						<th className="p-2 font-semibold text-left text-white border-b-2 border-white text-md md:text-2xl">
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-r-2 border-white text-md md:text-xl">
+							Order Address
+						</th>
+						<th className="p-2 font-semibold text-left text-white border-b-2 border-white text-md md:text-xl">
 							Order Price
 						</th>
 					</tr>
