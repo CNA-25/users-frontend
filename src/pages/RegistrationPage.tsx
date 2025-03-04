@@ -8,6 +8,8 @@ const RegistrationPage: React.FC = () => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
+		phone: "",
+		dob: "",
 		password: "",
 	});
 	const [loading, setLoading] = useState(false);
@@ -73,6 +75,27 @@ const RegistrationPage: React.FC = () => {
 						className="p-2 text-orange-200 bg-black border border-black rounded"
 						required
 					/>
+					<input
+						type="tel"
+						name="phone"
+						pattern="[0-9]{10}"
+						placeholder="Phone"
+						value={formData.phone}
+						onChange={handleChange}
+						className="p-2 text-orange-200 bg-black border border-black rounded"
+						required
+					/>
+					<div className="flex flex-col">
+						<p className="pl-2 text-orange-200/50 text-md">Date of Birth</p>
+						<input
+							type="date"
+							name="dob"
+							value={formData.dob}
+							onChange={handleChange}
+							className="p-2 text-orange-200 bg-black border border-black rounded"
+							required
+						/>
+					</div>
 					<input
 						type="password"
 						name="password"
