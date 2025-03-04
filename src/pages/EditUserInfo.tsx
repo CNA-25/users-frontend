@@ -144,8 +144,10 @@ const EditUserInfo: React.FC = () => {
             <h1 className="my-8 text-6xl font-bold text-center text-orange-500">
               Update your information
             </h1>
-            <h4>A * above a field means it is required</h4>
-            <h2 className="text-xl font-bold text-orange-500">*</h2>
+            <h4 className="text-xl text-white">
+              A * above a field means it is required
+            </h4>
+            <h2 className="text-2xl font-bold text-orange-500">*</h2>
             <input
               type="text"
               name="name"
@@ -164,7 +166,7 @@ const EditUserInfo: React.FC = () => {
               required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
-            <h2 className="text-xl font-bold text-orange-500">*</h2>
+            <h2 className="text-2xl font-bold text-orange-500">*</h2>
             <input
               type="tel"
               name="phone"
@@ -174,7 +176,7 @@ const EditUserInfo: React.FC = () => {
               required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
-            <h2 className="text-xl font-bold text-orange-500">*</h2>
+            <h2 className="text-2xl font-bold text-orange-500">*</h2>
             <input
               type="date"
               name="birthday"
