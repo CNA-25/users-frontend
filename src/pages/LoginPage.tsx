@@ -25,7 +25,7 @@ const LoginPage: React.FC = () => {
 
 	const handleLogin = async () => {
 		try {
-			const response = await axios(
+			const response = await axios.post(
 				"https://user-service-api-user-service.2.rahtiapp.fi/login",
 				{ data: formData }
 			);
