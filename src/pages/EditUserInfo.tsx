@@ -28,11 +28,30 @@ const EditUserInfo: React.FC = () => {
       toast.error("Unauthorized. Please log in first.");
       return;
     }
+
     const decodedToken = decodeJWT(token);
     const userId = decodedToken?.sub;
 
     if (!userId) {
       toast.error("Failed to retrieve user ID.");
+      return;
+    }
+
+    if (formData.password && formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+
+    const updateData: Record<string, any> = {};
+    if (formData.name) updateData.name = formData.name;
+    if (formData.email) updateData.email = formData.email;
+    if (formData.phone) updateData.phone = formData.phone;
+    if (formData.birthday)
+      updateData.dob = new Date(formData.birthday).toISOString();
+    if (formData.password) updateData.password = formData.password;
+
+    if (Object.keys(updateData).length === 0) {
+      toast.info("No changes made.");
       return;
     }
 
@@ -45,18 +64,12 @@ const EditUserInfo: React.FC = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            dob: formData.birthday,
-            password: formData.password,
-          }),
+          body: JSON.stringify(updateData),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update user");
+        throw new Error(await response.text());
       }
 
       toast.success("User updated successfully!");
@@ -115,7 +128,7 @@ const EditUserInfo: React.FC = () => {
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="Password (leave blank to keep current)"
               value={formData.password}
               onChange={handleChange}
               className="p-2 text-orange-200 bg-black border border-black rounded"
