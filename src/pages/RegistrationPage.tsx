@@ -31,10 +31,11 @@ const RegistrationPage: React.FC = () => {
 				"https://user-service-api-user-service.2.rahtiapp.fi/users",
 				formData
 			);
-			alert("Registration successful! You can now log in.");
-			navigate("/login");
-			toast.success("Register successful! Login next", {
+			toast.success("Register successful! Now Login", {
 				className: "bg-zinc-900 text-white",
+				onClick: () => {
+					navigate("/");
+				},
 			});
 		} catch (error) {
 			console.log(error);

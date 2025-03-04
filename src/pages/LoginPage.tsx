@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import Navbar from "../components/navbar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/stores/auth";
+import axios from "axios";
 
 const LoginPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -24,27 +25,14 @@ const LoginPage: React.FC = () => {
 
 	const handleLogin = async () => {
 		try {
-			const response = await fetch(
+			const response = await axios(
 				"https://user-service-api-user-service.2.rahtiapp.fi/login",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(formData),
-				}
+				{ data: formData }
 			);
-			const data = await response.json();
-			if (!response.ok) {
-				throw new Error(data.message || "Login failed");
-			}
-
 			toast.success("Login successful!", {
 				className: "bg-zinc-900 text-white",
 			});
-
-			console.log("Login successful", data);
-			setToken(data.access_token);
+			setToken(response.data.access_token);
 			setAuthenticated(true);
 			navigate(state?.path || "/orders");
 		} catch (error) {
