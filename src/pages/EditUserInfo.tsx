@@ -1,14 +1,15 @@
-import Navbar from "@/components/navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import decodeJWT from "@/components/JWT/jwtDecoder";
 import { useAuthStore } from "@/stores/auth";
+import Navbar from "@/components/navbar";
 
 const EditUserInfo: React.FC = () => {
   const navigate = useNavigate();
   const { token } = useAuthStore();
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,6 +18,57 @@ const EditUserInfo: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!token) {
+        toast.error("Unauthorized. Please log in.");
+        navigate("/login");
+        return;
+      }
+
+      const decodedToken = decodeJWT(token);
+      const userId = decodedToken?.sub;
+
+      if (!userId) {
+        toast.error("Failed to retrieve user ID.");
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `https://user-service-api-user-service.2.rahtiapp.fi/users/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch user data");
+
+        const userData = await response.json();
+
+        setFormData({
+          name: userData.name || "",
+          email: userData.email || "",
+          phone: userData.phone || "",
+          birthday: userData.dob ? userData.dob.split("T")[0] : "", // Convert to YYYY-MM-DD
+          password: "",
+          confirmPassword: "",
+        });
+
+        setLoading(false);
+      } catch (error) {
+        toast.error("Error fetching user data");
+        console.error(error);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [token, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,18 +94,14 @@ const EditUserInfo: React.FC = () => {
       return;
     }
 
-    const updateData: Record<string, any> = {};
-    if (formData.name) updateData.name = formData.name;
-    if (formData.email) updateData.email = formData.email;
-    if (formData.phone) updateData.phone = formData.phone;
-    if (formData.birthday)
-      updateData.dob = new Date(formData.birthday).toISOString();
-    if (formData.password) updateData.password = formData.password;
+    const updateData: Record<string, any> = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      dob: formData.birthday ? new Date(formData.birthday).toISOString() : null,
+    };
 
-    if (Object.keys(updateData).length === 0) {
-      toast.info("No changes made.");
-      return;
-    }
+    if (formData.password) updateData.password = formData.password;
 
     try {
       const response = await fetch(
@@ -80,6 +128,10 @@ const EditUserInfo: React.FC = () => {
     }
   };
 
+  if (loading) {
+    return <p className="text-center text-orange-500">Loading user data...</p>;
+  }
+
   return (
     <>
       <Navbar />
@@ -99,6 +151,7 @@ const EditUserInfo: React.FC = () => {
               placeholder="Full name"
               value={formData.name}
               onChange={handleChange}
+              required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
             <input
@@ -107,6 +160,7 @@ const EditUserInfo: React.FC = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
+              required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
             <input
@@ -115,6 +169,7 @@ const EditUserInfo: React.FC = () => {
               placeholder="Phone number"
               value={formData.phone}
               onChange={handleChange}
+              required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
             <input
@@ -123,12 +178,13 @@ const EditUserInfo: React.FC = () => {
               placeholder="Birthday"
               value={formData.birthday}
               onChange={handleChange}
+              required
               className="p-2 text-orange-200 bg-black border border-black rounded"
             />
             <input
               type="password"
               name="password"
-              placeholder="Password (leave blank to keep current)"
+              placeholder="New password (optional)"
               value={formData.password}
               onChange={handleChange}
               className="p-2 text-orange-200 bg-black border border-black rounded"
