@@ -17,7 +17,14 @@ const RegistrationPage: React.FC = () => {
 
 	// Uppdaterar state när användaren skriver i ett inmatningsfält
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+		const { name, value } = e.target;
+
+		if (name === "dob") {
+			const isoDate = new Date(value).toISOString();
+			setFormData({ ...formData, [name]: isoDate });
+		} else {
+			setFormData({ ...formData, [e.target.name]: e.target.value });
+		}
 	};
 
 	//Hanterar formulärinlämning
@@ -91,7 +98,7 @@ const RegistrationPage: React.FC = () => {
 						<input
 							type="date"
 							name="dob"
-							value={formData.dob}
+							value={formData.dob ? formData.dob.split("T")[0] : ""}
 							onChange={handleChange}
 							className="p-2 text-orange-200 bg-black border border-black rounded"
 							required
