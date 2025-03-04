@@ -27,7 +27,7 @@ const LoginPage: React.FC = () => {
 		try {
 			const response = await axios.post(
 				"https://user-service-api-user-service.2.rahtiapp.fi/login",
-				{ formData }
+				{ ...formData }
 			);
 			toast.success("Login successful!", {
 				className: "bg-zinc-900 text-white",
