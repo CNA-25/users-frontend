@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import decodeJWT from "@/components/JWT/jwtDecoder";
 import { useAuthStore } from "@/stores/auth";
 import Navbar from "@/components/navbar";
+import axios from "axios";
 
 const EditUserInfo: React.FC = () => {
   const navigate = useNavigate();
@@ -37,19 +38,15 @@ const EditUserInfo: React.FC = () => {
       }
 
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `https://user-service-api-user-service.2.rahtiapp.fi/users/${userId}`,
           {
-            method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-
-        if (!response.ok) throw new Error("Failed to fetch user data");
-
-        const userData = await response.json();
+        const userData = response.data.user_data;
 
         setFormData({
           name: userData.name || "",
@@ -106,21 +103,16 @@ const EditUserInfo: React.FC = () => {
     if (formData.password) updateData.password = formData.password;
 
     try {
-      const response = await fetch(
+      await axios.patch(
         `https://user-service-api-user-service.2.rahtiapp.fi/users/${userId}`,
+        { ...formData },
         {
-          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(updateData),
         }
       );
-
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
 
       toast.success("User updated successfully!");
     } catch (error) {
