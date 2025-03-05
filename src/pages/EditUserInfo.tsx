@@ -15,7 +15,7 @@ const EditUserInfo: React.FC = () => {
     name: "",
     email: "",
     phone: "",
-    birthday: "",
+    dob: "",
     password: "",
     confirmPassword: "",
   });
@@ -52,7 +52,7 @@ const EditUserInfo: React.FC = () => {
           name: userData.name || "",
           email: userData.email || "",
           phone: userData.phone || "",
-          birthday: userData.dob ? userData.dob.split("T")[0] : "", // Convert to YYYY-MM-DD
+          dob: userData.dob ? userData.dob.split("T")[0] : "", // Convert to YYYY-MM-DD
           password: "",
           confirmPassword: "",
         });
@@ -69,7 +69,14 @@ const EditUserInfo: React.FC = () => {
   }, [token, navigate, setAuthenticated]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "dob") {
+      const isoDate = new Date(value).toISOString();
+      setFormData({ ...formData, [name]: isoDate });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -97,7 +104,7 @@ const EditUserInfo: React.FC = () => {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
-      dob: formData.birthday ? new Date(formData.birthday).toISOString() : null,
+      dob: formData.dob ? new Date(formData.dob).toISOString() : null,
     };
 
     if (formData.password) updateData.password = formData.password;
@@ -105,7 +112,7 @@ const EditUserInfo: React.FC = () => {
     try {
       await axios.patch(
         `https://user-service-api-user-service.2.rahtiapp.fi/users/${userId}`,
-        { ...formData },
+        { ...updateData },
         {
           headers: {
             "Content-Type": "application/json",
@@ -173,7 +180,7 @@ const EditUserInfo: React.FC = () => {
             type="date"
             name="birthday"
             placeholder="Birthday"
-            value={formData.birthday}
+            value={formData.dob}
             onChange={handleChange}
             required
             className="p-2 text-orange-200 bg-black border border-black rounded"
