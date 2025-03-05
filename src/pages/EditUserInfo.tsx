@@ -128,10 +128,6 @@ const EditUserInfo: React.FC = () => {
     }
   };
 
-  if (loading) {
-    return <p className="text-center text-orange-500">Loading user data...</p>;
-  }
-
   return (
     <>
       <Navbar />
@@ -143,66 +139,72 @@ const EditUserInfo: React.FC = () => {
           <h1 className="mb-8 text-6xl font-bold text-center text-orange-500">
             Update your information
           </h1>
-          <input
-            type="text"
-            name="name"
-            placeholder="Full name"
-            value={formData.name}
-            onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-            required
-          />
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone number"
-            value={formData.phone}
-            onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-            required
-          />
-          <input
-            type="date"
-            name="birthday"
-            placeholder="Birthday"
-            value={formData.dob}
-            onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="New password (optional)"
-            value={formData.password}
-            onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-            required
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Retype password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-            required
-          />
-          <button
-            type="submit"
-            className="p-2 text-white bg-orange-500 rounded hover:bg-orange-800"
-          >
-            Update information
-          </button>
+          {loading ? (
+            <p className="text-center text-orange-500">Loading user data...</p>
+          ) : (
+            <>
+              <input
+                type="text"
+                name="name"
+                placeholder="Full name"
+                value={formData.name}
+                onChange={handleChange}
+                className="p-2 text-orange-200 bg-black border border-black rounded"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                className="p-2 text-orange-200 bg-black border border-black rounded"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone number"
+                value={formData.phone}
+                onChange={handleChange}
+                className="p-2 text-orange-200 bg-black border border-black rounded"
+                required
+              />
+              <input
+                type="date"
+                name="birthday"
+                placeholder="Birthday"
+                value={formData.dob}
+                onChange={handleChange}
+                className="p-2 text-orange-200 bg-black border border-black rounded"
+                required
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="New password (optional)"
+                value={formData.password}
+                onChange={handleChange}
+                className="p-2 text-orange-200 bg-black border border-black rounded"
+                required
+              />
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Retype password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="p-2 text-orange-200 bg-black border border-black rounded"
+                required
+              />
+              <button
+                type="submit"
+                className="p-2 text-white bg-orange-500 rounded hover:bg-orange-800"
+              >
+                Update information
+              </button>
+            </>
+          )}
         </form>
       </div>
     </>
