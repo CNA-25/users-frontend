@@ -4,8 +4,10 @@ import Navbar from "../components/navbar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const LoginPage: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -29,16 +31,14 @@ const LoginPage: React.FC = () => {
         "https://user-service-api-user-service.2.rahtiapp.fi/login",
         { ...formData }
       );
-      toast.success("Login successful!", {
+      toast.success(t("loginSuccess"), {
         className: "bg-zinc-900 text-white",
       });
       setToken(response.data.access_token);
       setAuthenticated(true);
       navigate(state?.path || "/orders");
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "An unexpected error occurred"
-      );
+      toast.error(t("loginFailed"));
       console.error("Login error:", error);
     }
   };
@@ -52,14 +52,14 @@ const LoginPage: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <h1 className="mt-2 mb-8 text-6xl font-bold text-center text-orange-500 sm:mt-60">
-            Login
+            {t("login")}
           </h1>
           <input
             name="email"
             value={formData.email}
             onChange={handleChange}
             type="email"
-            placeholder="Email"
+            placeholder={t("email")}
             className="p-2 text-orange-200 bg-black border border-black rounded"
             required
           />
@@ -68,7 +68,7 @@ const LoginPage: React.FC = () => {
             value={formData.password}
             onChange={handleChange}
             type="password"
-            placeholder="Password"
+            placeholder={t("password")}
             className="p-2 text-orange-200 bg-black border border-black rounded"
             required
           />
@@ -82,13 +82,13 @@ const LoginPage: React.FC = () => {
             type="submit"
             className="p-2 text-white bg-orange-500 rounded hover:bg-orange-800"
           >
-            Login
+            {t("login")}
           </button>
           <Link
             to="/register"
             className="w-auto text-center text-orange-500 md:text-md hover:text-orange-800"
           >
-            No account? Register here!
+            {t("noAccount")}
           </Link>
         </form>
       </div>

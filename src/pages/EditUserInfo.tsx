@@ -6,9 +6,11 @@ import decodeJWT from "@/components/JWT/jwtDecoder";
 import { useAuthStore } from "@/stores/auth";
 import Navbar from "@/components/navbar";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const EditUserInfo: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { token, setAuthenticated } = useAuthStore();
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
@@ -137,15 +139,17 @@ const EditUserInfo: React.FC = () => {
           className="flex flex-col w-full gap-4 px-4 xl:w-1/4 md:w-1/3 sm:w-1/2 sm:px-0"
         >
           <h1 className="mb-8 text-6xl font-bold text-center text-orange-500">
-            Update your information
+            {t("updateUser")}
           </h1>
           {loading && (
-            <p className="text-center text-orange-500">Loading user data...</p>
+            <p className="text-center text-orange-500">
+              {t("loadingUserData")}
+            </p>
           )}
           <input
             type="text"
             name="name"
-            placeholder="Full name"
+            placeholder={t("name")}
             value={formData.name}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
@@ -154,7 +158,7 @@ const EditUserInfo: React.FC = () => {
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder={t("email")}
             value={formData.email}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
@@ -163,7 +167,7 @@ const EditUserInfo: React.FC = () => {
           <input
             type="tel"
             name="phone"
-            placeholder="Phone number"
+            placeholder={t("phone")}
             value={formData.phone}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
@@ -171,8 +175,8 @@ const EditUserInfo: React.FC = () => {
           />
           <input
             type="date"
-            name="birthday"
-            placeholder="Birthday"
+            name="dob"
+            placeholder={t("dob")}
             value={formData.dob}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
@@ -181,7 +185,7 @@ const EditUserInfo: React.FC = () => {
           <input
             type="password"
             name="password"
-            placeholder="New password (optional)"
+            placeholder={t("newPassword")}
             value={formData.password}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
@@ -190,7 +194,7 @@ const EditUserInfo: React.FC = () => {
           <input
             type="password"
             name="confirmPassword"
-            placeholder="Retype password"
+            placeholder={t("retypePassword")}
             value={formData.confirmPassword}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
@@ -200,7 +204,7 @@ const EditUserInfo: React.FC = () => {
             type="submit"
             className="p-2 text-white bg-orange-500 rounded hover:bg-orange-800"
           >
-            Update information
+            {t("updateUserButton")}
           </button>
         </form>
       </div>
