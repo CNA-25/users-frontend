@@ -7,6 +7,9 @@ const resources: Record<string, { translation: Record<string, string> }> = {
         translation: {
             login: "Login",
             register: "Register",
+            profile: "Profile",
+            myOrders: "My orders",
+            logout: "Logout",
             updateUser: "Update your information",
             loadingUserData: "Loading user data...",
             updateUserButton: "Update information", 
@@ -51,6 +54,9 @@ const resources: Record<string, { translation: Record<string, string> }> = {
         translation: {
             login: "Kirjaudu sisään",
             register: "Rekisteröidy",
+            profile: "Profiili",
+            myOrders: "Omat tilaukset",
+            logout: "Kirjaudu ulos",
             updateUser: "Päivitä tietosi",
             loadingUserData: "Ladataan käyttäjätietoja...",
             updateUserButton: "Päivitä tiedot",
@@ -95,6 +101,9 @@ const resources: Record<string, { translation: Record<string, string> }> = {
         translation: {
             login: "Logga in",
             register: "Registrera",
+            profile: "Profil",
+            myOrders: "Mina beställningar",
+            logout: "Logga ut",
             updateUser: "Uppdatera din information",
             loadingUserData: "Laddar användardata...",
             updateUserButton: "Uppdatera information",

@@ -53,20 +53,20 @@ const Navbar: React.FC = () => {
                 to="/edit"
                 className="mx-4 text-2xl text-orange-500 md:text-md hover:text-orange-800"
               >
-                Profile
+                {t("profile")}
               </Link>
               <Link
                 to="/orders"
                 className="mx-4 text-2xl text-orange-500 md:text-md hover:text-orange-800"
               >
-                My Orders
+                {t("myOrders")}
               </Link>
               <Link
                 className="mx-4 text-2xl text-orange-500 md:text-md hover:text-orange-800"
                 onClick={handleLogout}
                 to="/"
               >
-                Logout
+                {t("logout")}
               </Link>
             </>
           ) : (

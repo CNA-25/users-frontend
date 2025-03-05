@@ -11,7 +11,7 @@ function ProtectedPage(props: ProtectedPageProps) {
   const location = useLocation();
   const { children } = props;
 
-  return authenticated !== true ? (
+  return authenticated === true ? (
     <>{children}</>
   ) : (
     <Navigate to={"/"} replace state={{ path: location.pathname }} />
