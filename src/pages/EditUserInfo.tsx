@@ -143,18 +143,14 @@ const EditUserInfo: React.FC = () => {
           <h1 className="mb-8 text-6xl font-bold text-center text-orange-500">
             Update your information
           </h1>
-          <h4 className="text-xl text-white">
-            A * above a field means it is required
-          </h4>
-          <h2 className="text-2xl font-bold text-orange-500">*</h2>
           <input
             type="text"
             name="name"
             placeholder="Full name"
             value={formData.name}
             onChange={handleChange}
-            required
             className="p-2 text-orange-200 bg-black border border-black rounded"
+            required
           />
           <input
             type="email"
@@ -162,28 +158,26 @@ const EditUserInfo: React.FC = () => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            required
             className="p-2 text-orange-200 bg-black border border-black rounded"
+            required
           />
-          <h2 className="text-2xl font-bold text-orange-500">*</h2>
           <input
             type="tel"
             name="phone"
             placeholder="Phone number"
             value={formData.phone}
             onChange={handleChange}
-            required
             className="p-2 text-orange-200 bg-black border border-black rounded"
+            required
           />
-          <h2 className="text-2xl font-bold text-orange-500">*</h2>
           <input
             type="date"
             name="birthday"
             placeholder="Birthday"
             value={formData.dob}
             onChange={handleChange}
-            required
             className="p-2 text-orange-200 bg-black border border-black rounded"
+            required
           />
           <input
             type="password"
@@ -192,6 +186,7 @@ const EditUserInfo: React.FC = () => {
             value={formData.password}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
+            required
           />
           <input
             type="password"
@@ -200,6 +195,7 @@ const EditUserInfo: React.FC = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
+            required
           />
           <button
             type="submit"
