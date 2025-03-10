@@ -188,6 +188,7 @@ const EditUserInfo: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             required
+            className="p-2 text-orange-200 bg-black border border-black rounded"
           />
           <input
             type="email"
@@ -196,6 +197,7 @@ const EditUserInfo: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            className="p-2 text-orange-200 bg-black border border-black rounded"
           />
           <input
             type="tel"
@@ -204,6 +206,7 @@ const EditUserInfo: React.FC = () => {
             value={formData.phone}
             onChange={handleChange}
             required
+            className="p-2 text-orange-200 bg-black border border-black rounded"
           />
           <input
             type="date"
@@ -212,6 +215,7 @@ const EditUserInfo: React.FC = () => {
             value={formData.dob}
             onChange={handleChange}
             required
+            className="p-2 text-orange-200 bg-black border border-black rounded"
           />
           <input
             type="password"
@@ -219,6 +223,7 @@ const EditUserInfo: React.FC = () => {
             placeholder={t("newPassword")}
             value={formData.password}
             onChange={handleChange}
+            className="p-2 text-orange-200 bg-black border border-black rounded"
           />
           <input
             type="password"
@@ -226,8 +231,14 @@ const EditUserInfo: React.FC = () => {
             placeholder={t("retypePassword")}
             value={formData.confirmPassword}
             onChange={handleChange}
+            className="p-2 text-orange-200 bg-black border border-black rounded"
           />
-          <button type="submit">{t("updateUserButton")}</button>
+          <button
+            type="submit"
+            className="p-2 text-white bg-orange-500 rounded hover:bg-orange-800"
+          >
+            {t("updateUserButton")}
+          </button>
           <button
             type="button"
             onClick={handleDelete}
