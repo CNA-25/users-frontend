@@ -72,12 +72,7 @@ const LoginPage: React.FC = () => {
             className="p-2 text-orange-200 bg-black border border-black rounded"
             required
           />
-          {/*<Link
-						to="/reset"
-						className="w-auto text-orange-500 md:text-md hover:text-orange-800"
-					>
-						Forgot password?
-					</Link>*/}
+
           <button
             type="submit"
             className="p-2 text-white bg-orange-500 rounded hover:bg-orange-800"

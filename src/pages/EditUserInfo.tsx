@@ -20,49 +20,54 @@ const EditUserInfo: React.FC = () => {
     dob: "",
     password: "",
     confirmPassword: "",
+    address: "",
+    data: "",
   });
 
   useEffect(() => {
+    if (!token) {
+      toast.error("Unauthorized. Please log in.");
+      setAuthenticated(false);
+      navigate("/");
+      return;
+    }
+
     const fetchUserData = async () => {
-      if (!token) {
-        toast.error("Unauthorized. Please log in.");
-        setAuthenticated(false);
-        navigate("/");
-        return;
-      }
-
-      const decodedToken = decodeJWT(token);
-      const userId = decodedToken?.sub;
-
-      if (!userId) {
-        toast.error("Failed to retrieve user ID.");
-        return;
-      }
-
       try {
+        const decodedToken = decodeJWT(token);
+        const userId = decodedToken?.sub;
+        if (!userId) {
+          toast.error("Failed to retrieve user ID.");
+          return;
+        }
+
         const response = await axios.get(
           `https://user-service-api-user-service.2.rahtiapp.fi/users/${userId}`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
+
         const userData = response.data.user_data;
+        if (!userData) {
+          toast.error("Unexpected response from server.");
+          return;
+        }
 
         setFormData({
           name: userData.name || "",
           email: userData.email || "",
           phone: userData.phone || "",
-          dob: userData.dob ? userData.dob.split("T")[0] : "", // Convert to YYYY-MM-DD
+          dob: userData.dob ? userData.dob.split("T")[0] : "",
           password: "",
           confirmPassword: "",
+          address: userData.address ? JSON.stringify(userData.address) : "",
+          data: userData.data ? JSON.stringify(userData.data) : "",
         });
-
-        setLoading(false);
       } catch (error) {
         toast.error("Error fetching user data");
         console.error(error);
+      } finally {
         setLoading(false);
       }
     };
@@ -72,13 +77,7 @@ const EditUserInfo: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    if (name === "dob") {
-      const isoDate = new Date(value).toISOString();
-      setFormData({ ...formData, [name]: isoDate });
-    } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -90,7 +89,6 @@ const EditUserInfo: React.FC = () => {
 
     const decodedToken = decodeJWT(token);
     const userId = decodedToken?.sub;
-
     if (!userId) {
       toast.error("Failed to retrieve user ID.");
       return;
@@ -101,12 +99,13 @@ const EditUserInfo: React.FC = () => {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updateData: Record<string, any> = {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
-      dob: formData.dob ? new Date(formData.dob).toISOString() : null,
+      dob: formData.dob,
+      address: formData.address ? JSON.parse(formData.address) : {},
+      data: formData.data ? JSON.parse(formData.data) : {},
     };
 
     if (formData.password) updateData.password = formData.password;
@@ -114,7 +113,7 @@ const EditUserInfo: React.FC = () => {
     try {
       await axios.patch(
         `https://user-service-api-user-service.2.rahtiapp.fi/users/${userId}`,
-        { ...updateData },
+        updateData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -122,11 +121,47 @@ const EditUserInfo: React.FC = () => {
           },
         }
       );
-
       toast.success("User updated successfully!");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "An error occurred");
       console.error("Update error:", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!token) {
+      toast.error("Unauthorized. Please log in first.");
+      return;
+    }
+
+    const decodedToken = decodeJWT(token);
+    const userId = decodedToken?.sub;
+    if (!userId) {
+      toast.error("Failed to retrieve user ID.");
+      return;
+    }
+
+    if (
+      !window.confirm(
+        "Are you sure you want to delete your account? This action is irreversible."
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await axios.delete(
+        `https://user-service-api-user-service.2.rahtiapp.fi/users/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      toast.success("User deleted successfully!");
+      setAuthenticated(false);
+      navigate("/");
+    } catch (error) {
+      toast.error("Error deleting user");
+      console.error("Delete error:", error);
     }
   };
 
@@ -152,7 +187,6 @@ const EditUserInfo: React.FC = () => {
             placeholder={t("name")}
             value={formData.name}
             onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
             required
           />
           <input
@@ -161,7 +195,6 @@ const EditUserInfo: React.FC = () => {
             placeholder={t("email")}
             value={formData.email}
             onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
             required
           />
           <input
@@ -170,7 +203,6 @@ const EditUserInfo: React.FC = () => {
             placeholder={t("phone")}
             value={formData.phone}
             onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
             required
           />
           <input
@@ -179,7 +211,6 @@ const EditUserInfo: React.FC = () => {
             placeholder={t("dob")}
             value={formData.dob}
             onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
             required
           />
           <input
@@ -188,8 +219,6 @@ const EditUserInfo: React.FC = () => {
             placeholder={t("newPassword")}
             value={formData.password}
             onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-            required
           />
           <input
             type="password"
@@ -197,14 +226,14 @@ const EditUserInfo: React.FC = () => {
             placeholder={t("retypePassword")}
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-            required
           />
+          <button type="submit">{t("updateUserButton")}</button>
           <button
-            type="submit"
-            className="p-2 text-white bg-orange-500 rounded hover:bg-orange-800"
+            type="button"
+            onClick={handleDelete}
+            className="p-2 mt-4 text-white bg-red-600 rounded hover:bg-red-800"
           >
-            {t("updateUserButton")}
+            {t("deleteUserButton")}
           </button>
         </form>
       </div>
