@@ -50,12 +50,12 @@ const LoginPage: React.FC = () => {
 	return (
 		<>
 			<Navbar />
-			<div className="flex justify-center flex-1 items-top">
+			<div className="flex items-center justify-center flex-1">
 				<form
 					className="flex flex-col w-full gap-4 px-4 xl:w-1/4 md:w-1/3 sm:w-1/2 sm:px-0"
 					onSubmit={handleSubmit}
 				>
-					<h1 className="mt-2 mb-8 text-3xl font-bold text-center text-orange-500 md:text-6xl sm:mt-60">
+					<h1 className="mt-4 mb-8 text-3xl font-bold text-center text-orange-500 md:text-6xl">
 						{t("login")}
 					</h1>
 					<input

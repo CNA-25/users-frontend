@@ -54,7 +54,10 @@ const EditUserInfo: React.FC = () => {
 				const response = await axios.get(
 					`https://user-service-api-user-service.2.rahtiapp.fi/users/${userId}`,
 					{
-						headers: { Authorization: `Bearer ${token}` },
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
 					}
 				);
 
@@ -192,12 +195,12 @@ const EditUserInfo: React.FC = () => {
 	return (
 		<>
 			<Navbar />
-			<div className="flex justify-center flex-1 items-top">
+			<div className="flex items-center justify-center flex-1 overflow-y-auto">
 				<form
 					onSubmit={handleSubmit}
 					className="flex flex-col w-full gap-4 px-4 xl:w-1/4 md:w-1/3 sm:w-1/2 sm:px-0"
 				>
-					<h1 className="mb-8 text-3xl font-bold text-center text-orange-500 md:text-6xl">
+					<h1 className="mt-4 mb-8 text-3xl font-bold text-center text-orange-500 md:text-6xl">
 						{t("updateUser")}
 					</h1>
 					{loading && (
