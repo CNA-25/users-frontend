@@ -133,7 +133,7 @@ const EditUserInfo: React.FC = () => {
 			name: formData.name,
 			email: formData.email,
 			phone: formData.phone,
-			dob: formData.dob,
+			dob: new Date(formData.dob).toISOString(),
 			password: formData.password,
 			address: formData.address,
 		};
