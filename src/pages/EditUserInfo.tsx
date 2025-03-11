@@ -134,7 +134,7 @@ const EditUserInfo: React.FC = () => {
       phone: formData.phone,
       dob: formData.dob,
       password: formData.password,
-      address: formData.address, // No need for JSON.stringify
+      address: formData.address,
       data: formData.data ? JSON.parse(formData.data) : {},
     };
 
@@ -245,24 +245,6 @@ const EditUserInfo: React.FC = () => {
             className="p-2 text-orange-200 bg-black border border-black rounded"
           />
           <input
-            type="password"
-            name="password"
-            placeholder={t("newPassword")}
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder={t("retypePassword")}
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-            className="p-2 text-orange-200 bg-black border border-black rounded"
-          />
-          <input
             type="text"
             name="address.street"
             placeholder={t("street")}
@@ -298,7 +280,24 @@ const EditUserInfo: React.FC = () => {
             required
             className="p-2 text-orange-200 bg-black border border-black rounded"
           />
-
+          <input
+            type="password"
+            name="password"
+            placeholder={t("newPassword")}
+            value={formData.password}
+            onChange={handleChange}
+            required
+            className="p-2 text-orange-200 bg-black border border-black rounded"
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder={t("retypePassword")}
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            required
+            className="p-2 text-orange-200 bg-black border border-black rounded"
+          />
           <button
             type="submit"
             className="p-2 text-white bg-orange-500 rounded hover:bg-orange-800"
