@@ -15,8 +15,8 @@ const RegistrationPage: React.FC = () => {
     password: "",
     address: {
       street: "",
+      zipcode: "",
       city: "",
-      zip: "",
       country: "",
     },
   });
@@ -164,7 +164,7 @@ const RegistrationPage: React.FC = () => {
             type="text"
             name="address.zip"
             placeholder={t("zip")}
-            value={formData.address.zip}
+            value={formData.address.zipcode}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
             required

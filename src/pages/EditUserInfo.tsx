@@ -23,7 +23,7 @@ const EditUserInfo: React.FC = () => {
     address: {
       street: "",
       city: "",
-      zip: "",
+      zipcode: "",
       country: "",
     },
     data: "",
@@ -75,11 +75,11 @@ const EditUserInfo: React.FC = () => {
           address: userData.address
             ? {
                 street: userData.address.street || "",
+                zipcode: userData.address.zipcode || "",
                 city: userData.address.city || "",
-                zip: userData.address.zip || "",
                 country: userData.address.country || "",
               }
-            : { street: "", city: "", zip: "", country: "" },
+            : { street: "", city: "", zipcode: "", country: "" },
           data: userData.data ? JSON.stringify(userData.data) : "",
         });
       } catch (error) {
@@ -266,7 +266,7 @@ const EditUserInfo: React.FC = () => {
             type="text"
             name="address.zip"
             placeholder={t("zip")}
-            value={formData.address.zip}
+            value={formData.address.zipcode}
             onChange={handleChange}
             required
             className="p-2 text-orange-200 bg-black border border-black rounded"
