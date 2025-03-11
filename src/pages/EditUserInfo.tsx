@@ -135,7 +135,7 @@ const EditUserInfo: React.FC = () => {
       dob: formData.dob,
       password: formData.password,
       address: formData.address,
-      data: formData.data ? JSON.parse(formData.data) : {},
+      data: formData.data,
     };
 
     if (formData.password) updateData.password = formData.password;
