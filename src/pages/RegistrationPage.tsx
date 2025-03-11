@@ -78,7 +78,7 @@ const RegistrationPage: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-1 items-top">
+      <div className="flex justify-center flex-1 items-top">
         <form
           className="flex flex-col w-full gap-4 px-4 xl:w-1/4 md:w-1/3 sm:w-1/2 sm:px-0"
           onSubmit={handleSubmit}
@@ -162,8 +162,8 @@ const RegistrationPage: React.FC = () => {
 
           <input
             type="text"
-            name="address.zip"
-            placeholder={t("zip")}
+            name="address.zipcode"
+            placeholder={t("zipcode")}
             value={formData.address.zipcode}
             onChange={handleChange}
             className="p-2 text-orange-200 bg-black border border-black rounded"
