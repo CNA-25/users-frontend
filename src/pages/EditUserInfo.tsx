@@ -264,7 +264,7 @@ const EditUserInfo: React.FC = () => {
           />
           <input
             type="text"
-            name="address.zip"
+            name="address.zipcode"
             placeholder={t("zip")}
             value={formData.address.zipcode}
             onChange={handleChange}
