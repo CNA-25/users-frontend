@@ -17,7 +17,7 @@ const resources: Record<string, { translation: Record<string, string> }> = {
 			// Status messages
 			loginSuccess: "Login successful!",
 			loginFailed: "Failed to login successfully! Try again",
-			registerSuccess: "Register successful! Now Login",
+			registerSuccess: "Register successful!",
 			registerFailed: "Failed to register successfully! Try again",
 			// User update
 			unauthorized: "Unauthorized. Please log in.",
@@ -76,7 +76,7 @@ const resources: Record<string, { translation: Record<string, string> }> = {
 			// Tilaviestit
 			loginSuccess: "Sisäänkirjautuminen onnistui!",
 			loginFailed: "Sisäänkirjautuminen epäonnistui, yritä uudelleen",
-			registerSuccess: "Rekisteröinti onnistui! Nyt kirjaudu sisään",
+			registerSuccess: "Rekisteröinti onnistui!",
 			registerFailed: "Rekisteröinti epäonnistui! Yritä uudelleen",
 			unauthorized: "Ei käyttöoikeutta. Kirjaudu sisään.",
 			userIdError: "Käyttäjätunnusta ei voitu hakea.",
@@ -134,7 +134,7 @@ const resources: Record<string, { translation: Record<string, string> }> = {
 			// Statusmeddelanden
 			loginSuccess: "Inloggning lyckades!",
 			loginFailed: "Inloggning misslyckades, försök igen",
-			registerSuccess: "Registrering lyckades! Logga in nu",
+			registerSuccess: "Registrering lyckades!",
 			registerFailed: "Registrering misslyckades! Försök igen",
 			unauthorized: "Obehörig. Vänligen logga in.",
 			userIdError: "Misslyckades med att hämta användar-ID.",
