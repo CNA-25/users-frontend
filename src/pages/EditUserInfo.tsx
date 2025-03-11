@@ -178,7 +178,7 @@ const EditUserInfo: React.FC = () => {
 					onSubmit={handleSubmit}
 					className="flex flex-col w-full gap-4 px-4 xl:w-1/4 md:w-1/3 sm:w-1/2 sm:px-0"
 				>
-					<h1 className="mb-8 text-6xl font-bold text-center text-orange-500">
+					<h1 className="mb-8 text-3xl font-bold text-center text-orange-500 md:text-6xl">
 						{t("updateUser")}
 					</h1>
 					{loading && (
